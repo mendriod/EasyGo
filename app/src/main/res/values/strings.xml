@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">EasyGo</string>
+    <string name="err_api_unknown">Sorry for the inconvenience. Unknown API Error Occurred
+        and failed to download required data!</string>
+    <string name="err_api_json_malformed">Sorry for the inconvenience. Malformed JSON downloaded!</string>
+    <string name="err_api_no_results">Sorry. No Results found!</string>
+    <string name="err_network">Please Check your Internet Connection!</string>
+    <string name="err_uncaught_error">Sorry! Please report this to Mendroid Team!</string>
+    <string name="strAppVersion">Version</string>
+</resources>
