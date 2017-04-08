@@ -4,10 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.WindowManager;
 
+import mendroid.easygo.data.DbManager;
 import mendroid.easygo.utils.FuncUtils;
 import mendroid.easygo.utils.ui.MyProgressDialog;
-import mendroid.easygo.view.activity.SplashActivity;
+import mendroid.easygo.view.activity.HomeActivity;
 
 
 /**
@@ -23,12 +25,26 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     int progressInstances = 0;
 
-    Context context = this;
+    public Context context = this;
+
+    public DbManager dbManager;
+    public FuncUtils funcUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dbManager = new DbManager(context);
+        funcUtils = FuncUtils.getInstance(context);
+        closeKeyboard();
         initProgressDialog();
+    }
+
+    public void closeKeyboard() {
+        try {
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        } catch (Exception e) {
+
+        }
     }
 
 
@@ -109,7 +125,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void gotoLandingPage(boolean shouldFinish) {
-        Intent in = new Intent(this, SplashActivity.class);
+        Intent in = new Intent(this, HomeActivity.class);
         startActivity(in);
         if (shouldFinish)
             finish();

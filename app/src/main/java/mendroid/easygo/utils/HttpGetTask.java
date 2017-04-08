@@ -3,13 +3,12 @@ package mendroid.easygo.utils;
 import android.content.Context;
 import android.os.AsyncTask;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
 import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -24,13 +23,11 @@ public class HttpGetTask extends AsyncTask<String, Void, String> {
     Context mContext;
     String resp;
     GetDataDownloadListener dataDownloadListener;
-    String data;
 
 
-    public HttpGetTask(Context con, String data, GetDataDownloadListener comm) {
+    public HttpGetTask(Context con, GetDataDownloadListener comm) {
         this.mContext = con;
         try {
-            this.data = data;
             this.dataDownloadListener = comm;
             this.resp = "";
         } catch (Exception e) {
@@ -46,19 +43,18 @@ public class HttpGetTask extends AsyncTask<String, Void, String> {
         try {
             String currentRequestURL = urls[0];
             URL url = new URL(currentRequestURL);
-            HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setReadTimeout(10000);
             conn.setConnectTimeout(15000);
             conn.setRequestMethod("GET");
-            conn.setDoInput(true);
-            conn.setDoOutput(true);
+//            conn.setDoInput(true);
+//            conn.setDoOutput(true);
 
-            OutputStream os = conn.getOutputStream();
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-            writer.write(data);
-            writer.flush();
-            writer.close();
-            os.close();
+//            OutputStream os = conn.getOutputStream();
+//            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+//            writer.flush();
+//            writer.close();
+//            os.close();
 
             conn.connect();
             int responseCode = conn.getResponseCode();
@@ -89,11 +85,23 @@ public class HttpGetTask extends AsyncTask<String, Void, String> {
 
     protected void onPostExecute(String feed) {
         if (feed != null) {
+
+            boolean isJson = false;
             try {
                 new JSONObject((feed));
-                dataDownloadListener.dataDownloadedSuccessfully(feed);
+                isJson = true;
             } catch (Exception e) {
                 e.printStackTrace();
+                try {
+                    new JSONArray((feed));
+                    isJson = true;
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+            }
+            if (isJson) {
+                dataDownloadListener.dataDownloadedSuccessfully(feed);
+            } else {
                 dataDownloadListener.dataDownloadFailed(mContext.getString(R.string.err_api_json_malformed));
             }
         } else {

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -41,6 +42,19 @@ public class FuncUtils {
                 });
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
+    }
+
+    /**
+     * @param context
+     * @param msg     showing the toast message which can be utilised from any part of the app
+     */
+    public static void showToast(Context context, String msg) {
+        try {
+            if (msg != null && msg.trim().length() > 0)
+                Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

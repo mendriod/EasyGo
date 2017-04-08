@@ -20,6 +20,142 @@ public class RouteEntity extends DatabaseObject<RouteEntity> {
         this._id = _id;
     }
 
+    public int getId_tSearchEntity() {
+        return id_tSearchEntity;
+    }
+
+    public void setId_tSearchEntity(int id_tSearchEntity) {
+        this.id_tSearchEntity = id_tSearchEntity;
+    }
+
+    public int getStep() {
+        return step;
+    }
+
+    public void setStep(int step) {
+        this.step = step;
+    }
+
+    public int getXid_origin() {
+        return xid_origin;
+    }
+
+    public void setXid_origin(int xid_origin) {
+        this.xid_origin = xid_origin;
+    }
+
+    public int getXid_dest() {
+        return xid_dest;
+    }
+
+    public void setXid_dest(int xid_dest) {
+        this.xid_dest = xid_dest;
+    }
+
+    public String getMode() {
+        return mode;
+    }
+
+    public void setMode(String mode) {
+        this.mode = mode;
+    }
+
+    public String getcName() {
+        return cName;
+    }
+
+    public void setcName(String cName) {
+        this.cName = cName;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getDepTime() {
+        return depTime;
+    }
+
+    public void setDepTime(String depTime) {
+        this.depTime = depTime;
+    }
+
+    public String getArrTime() {
+        return arrTime;
+    }
+
+    public void setArrTime(String arrTime) {
+        this.arrTime = arrTime;
+    }
+
+    public String getCode_origin() {
+        return code_origin;
+    }
+
+    public void setCode_origin(String code_origin) {
+        this.code_origin = code_origin;
+    }
+
+    public String getCode_dest() {
+        return code_dest;
+    }
+
+    public void setCode_dest(String code_dest) {
+        this.code_dest = code_dest;
+    }
+
+    public String getCarrierJson() {
+        return carrierJson;
+    }
+
+    public void setCarrierJson(String carrierJson) {
+        this.carrierJson = carrierJson;
+    }
+
+    public int getTravelMinutes() {
+        return travelMinutes;
+    }
+
+    public void setTravelMinutes(int travelMinutes) {
+        this.travelMinutes = travelMinutes;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public int getDistance() {
+        return distance;
+    }
+
+    public void setDistance(int distance) {
+        this.distance = distance;
+    }
+
+    public String getTxt_origin() {
+        return txt_origin;
+    }
+
+    public void setTxt_origin(String txt_origin) {
+        this.txt_origin = txt_origin;
+    }
+
+    public String getTxt_dest() {
+        return txt_dest;
+    }
+
+    public void setTxt_dest(String txt_dest) {
+        this.txt_dest = txt_dest;
+    }
+
     int _id, id_tSearchEntity, step, xid_origin, xid_dest;
     String mode, cName, code, depTime, arrTime, code_origin, code_dest;
     String carrierJson;
@@ -112,6 +248,39 @@ public class RouteEntity extends DatabaseObject<RouteEntity> {
         _db.beginTransactionNonExclusive();
         Cursor cur = _db.query(false, getTableName(), COLUMNS,
                 null, null, null, null, "_id DESC", null);
+        cur.moveToFirst();
+        RouteEntity[] ret = new RouteEntity[cur.getCount()];
+        for (int i = 0; i < ret.length; i++) {
+            ret[i] = new RouteEntity();
+            ret[i].set_id(cur.getInt(0));
+            ret[i].id_tSearchEntity = cur.getInt(1);
+            ret[i].xid_origin = cur.getInt(2);
+            ret[i].txt_origin = cur.getString(3);
+            ret[i].xid_dest = cur.getInt(4);
+            ret[i].txt_dest = cur.getString(5);
+            ret[i].step = cur.getInt(6);
+            ret[i].mode = cur.getString(7);
+            ret[i].cName = cur.getString(8);
+            ret[i].code = cur.getString(9);
+            ret[i].depTime = cur.getString(10);
+            ret[i].arrTime = cur.getString(11);
+            ret[i].code_origin = cur.getString(12);
+            ret[i].code_dest = cur.getString(13);
+            ret[i].carrierJson = cur.getString(14);
+            ret[i].travelMinutes = cur.getInt(15);
+            ret[i].price = cur.getInt(16);
+            ret[i].distance = cur.getInt(17);
+            cur.moveToNext();
+        }
+        cur.close();
+        _db.endTransaction();
+        return ret;
+    }
+
+    public RouteEntity[] retrieveSpecialFlightCarriers(SQLiteDatabase _db, int id_tSearchEntity) {
+        _db.beginTransactionNonExclusive();
+        String query = "SELECT * FROM " + getTableName() + " WHERE id_tSearchEntity=" + id_tSearchEntity;
+        Cursor cur = _db.rawQuery(query, null);
         cur.moveToFirst();
         RouteEntity[] ret = new RouteEntity[cur.getCount()];
         for (int i = 0; i < ret.length; i++) {

@@ -7,4 +7,33 @@
     <string name="err_network">Please Check your Internet Connection!</string>
     <string name="err_uncaught_error">Sorry! Please report this to Mendroid Team!</string>
     <string name="strAppVersion">Version</string>
+
+    <string name="url_get_cities" formatted="false">http://build2.ixigo.com/action/content/zeus/autocomplete?searchFor=tpAutoComplete&amp;neCategories=City&amp;query=%1$s</string>
+    <string name="url_get_routes" formatted="false">http://build2.ixigo.com/api/v2/a2b/modes?apiKey=ixicode!2$&amp;originCityId=%1$d&amp;destinationCityId=%2$d</string>
+
+    <string name="strHome_From">From</string>
+    <string name="strHome_To">To</string>
+    <string name="strHome_Date">Date</string>
+
+    <string name="err_from">Invalid From City!</string>
+    <string name="err_to">Invalid To City!</string>
+    <string name="err_date">Invalid Date!</string>
+
+    <string name="strHome_Search">SEARCH</string>
+    <string name="strHome_NoRecent">No Recent Searches!</string>
+    <string name="strRecent_FromTo">From-To</string>
+    <string name="strRecent_DateTime">dd-mm-yyyy hh:mm</string>
+
+    <string name="view_details">View Details</string>
+
+    <string name="strBook_Book">BOOK</string>
+    <string name="strBook_View">View Details</string>
+    <string name="strBook_DT">DT :</string><!--Departure Time-->
+    <string name="strBook_AT">AT :</string><!--Arrival Time-->
+    <string name="strBook_Distance">Distance :</string>
+    <string name="strBook_TT">Travel Hrs :</string>
+    <string name="strHome_NoRoute">No Route found!</string>
+
+    <string name="routes_from_to" formatted="false">%1$s - %2$s</string>
+    <string name="rupee_sym">₹</string>
 </resources>
